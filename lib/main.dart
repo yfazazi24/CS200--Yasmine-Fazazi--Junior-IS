@@ -35,6 +35,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => LoginPage(),
         '/forgotpassword': (context) => ForgotPasswordPage(),
         '/menupage': (context) => const MenuPage(),
+        '/journalpage': (context)=> const JournalPage(),
       },
     );
   }
@@ -105,7 +106,7 @@ class SignupPage extends StatelessWidget {
     );
   }
 }
-
+//Login Page class
 class LoginPage extends StatelessWidget {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -169,7 +170,7 @@ class LoginPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => const MenuPage()
-                    ),
+                    ), //Leads to the menu page after login
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -212,7 +213,7 @@ class LoginPage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => SignUpPage(),
-                    ),
+                    ), //creating an account in the signup page
                   );
                 },
                 child: Text(
@@ -398,7 +399,7 @@ class ForgotPasswordPage extends StatelessWidget {
                 onPressed: () {
                   showDialog(
                     context: context,
-                    builder: (context) => AlertDialog(
+                    builder: (context) => AlertDialog( //DialogBox that would confirm the reset password
                       title: const Text('Password reset email sent'),
                       content: Text(
                           'A password reset email has been sent to ${_emailController.text}'),
@@ -455,7 +456,9 @@ class MenuPage extends StatefulWidget {
   @override
   myMenuPageState createState() => myMenuPageState();
 }
+
 class myMenuPageState extends State<MenuPage> {
+  //initialization of variables
   String affirmation = '';
   String quote = '';
   String advice = '';
@@ -532,6 +535,7 @@ class myMenuPageState extends State<MenuPage> {
 
   List<String> selectedTasks = [];
 
+  //Function randomizing the generation of tasks
   void generateTasks() {
     selectedTasks = [];
     final random = Random();
@@ -540,7 +544,7 @@ class myMenuPageState extends State<MenuPage> {
       selectedTasks.add(toDoList[index]);
     }
   }
-
+  //Function randomizing the generation of affirmations
   void generateAffirmation() {
     final random = Random();
     int index = random.nextInt(affirmationList.length);
@@ -549,6 +553,7 @@ class myMenuPageState extends State<MenuPage> {
     });
   }
 
+//Function randomizing the generation of quotes
   void generateQuote() {
     final random = Random();
     int index = random.nextInt(quoteList.length);
@@ -557,6 +562,7 @@ class myMenuPageState extends State<MenuPage> {
     });
   }
 
+//Function randomizing the generation of advice
   void generateAdvice() {
     final random = Random();
     int index = random.nextInt(adviceList.length);
@@ -565,6 +571,7 @@ class myMenuPageState extends State<MenuPage> {
     });
   }
 
+//Function randomizing the generation of jokes
   void generateJoke() {
     final random = Random();
     int index = random.nextInt(jokeList.length);
@@ -587,7 +594,7 @@ class myMenuPageState extends State<MenuPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'To-Do List',
+              "To-Do",
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -601,7 +608,7 @@ class myMenuPageState extends State<MenuPage> {
                   value: _smiledAtStranger,
                   onChanged: (bool? value) {
                     setState(() {
-                      _smiledAtStranger = value ?? false;
+                      _smiledAtStranger = value ?? true;
                     });
                   },
                   activeColor: Colors.teal[900],
@@ -624,7 +631,7 @@ class myMenuPageState extends State<MenuPage> {
                   value: _complimentedFriend,
                   onChanged: (bool? value) {
                     setState(() {
-                      _complimentedFriend = value ?? false;
+                      _complimentedFriend = value ?? true;
                     });
                   },
                   activeColor: Colors.teal[900],
@@ -647,14 +654,14 @@ class myMenuPageState extends State<MenuPage> {
                   value: _sentKindText,
                   onChanged: (bool? value) {
                     setState(() {
-                      _sentKindText = value ?? false;
+                      _sentKindText = value ?? true;
                     });
                   },
                   activeColor: Colors.teal[900],
                 ),
                 SizedBox(width: 8),
                 Text(
-                  'Send a kind text to someone meaningful to you',
+                  'Call a family member',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.teal[900],
@@ -663,17 +670,9 @@ class myMenuPageState extends State<MenuPage> {
                 ),
               ],
             ),
+
             Text(
-              'My Journal',
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
-            ),
-            SizedBox(height: 16),
-            Text(
-              'Daily care:',
+              'Daily care',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
@@ -692,12 +691,19 @@ class myMenuPageState extends State<MenuPage> {
                 ],
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/journalpage');
+              },
+              child: Text('My Journal'),
+            )
           ],
         ),
       ),
     );
   }
 
+  //Widget responsible of building the drop down menu
   Widget _buildDropDown(String title, List<String> items) {
     final _random = new Random();
     String selectedItem = items[_random.nextInt(items.length)];
@@ -719,7 +725,7 @@ class myMenuPageState extends State<MenuPage> {
             icon: const Icon(Icons.arrow_drop_down),
             iconSize: 24,
             elevation: 16,
-            style:  TextStyle(color: Colors.teal,
+            style:  TextStyle(color: Colors.teal[900],
               fontWeight: FontWeight.bold,
               fontSize: 16,),
             onChanged: (String? newValue) {
@@ -741,3 +747,149 @@ class myMenuPageState extends State<MenuPage> {
 
   }
 }
+
+//journaling page
+class JournalPage extends StatefulWidget {
+  const JournalPage({Key? key}) : super(key: key);
+
+  @override
+  _JournalPageState createState() => _JournalPageState();
+}
+
+class _JournalPageState extends State<JournalPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _gratefulController = TextEditingController();
+  final _letGoController = TextEditingController();
+  List<Map<String, String>> _journalEntries = [];
+
+  @override
+  void dispose() {
+    _gratefulController.dispose();
+    _letGoController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Colors.teal[100],
+        appBar: AppBar(
+          title: const Text('Journal'),
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+              const Text(
+                'What are you grateful for today?', //prompt#1
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+              TextFormField(
+                controller: _gratefulController,
+                maxLines: 5,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter something'; //prompt#2
+                  }
+                return null;
+                },
+              ),
+              const SizedBox(height: 16.0),
+              const Text(
+                'What do you need to let go of today?',
+                style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+                ),
+              ),
+            TextFormField(
+              controller: _letGoController,
+              maxLines: 5,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter something';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16.0),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    final grateful = _gratefulController.text;
+                    final letGo = _letGoController.text;
+                    final entry = <String, String>{
+                      'grateful': grateful,
+                      'letGo': letGo,
+                      'date': DateTime.now().toString()
+                      };
+              setState(() {
+                _journalEntries.add(entry);
+                _gratefulController.clear();
+                _letGoController.clear();
+              });
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Entry saved')),
+              );
+                  }
+                },
+              child: const Text('Save'),
+            ),
+          ),
+    const SizedBox(height: 16.0),
+      const Text(
+        'Entries',
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 20.0,
+        ),
+      ),
+    const Divider(),
+    Expanded(
+      child: ListView.builder( //stores a list of entries by date of entry
+        itemCount: _journalEntries.length,
+        itemBuilder: (context, index) {
+          final entry = _journalEntries[index];
+          return Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Date: ${entry['date']}',
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  const SizedBox(height: 8.0),
+                      Text(
+                      'Grateful for: ${entry['grateful']}',
+                      ),
+                  const SizedBox(height: 8.0),
+                      Text(
+                      'Letting go of: ${entry['letGo']}',
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      ),
+    ),
+  );
+
+  }
+}
+
