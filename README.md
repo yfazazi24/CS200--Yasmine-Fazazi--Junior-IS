@@ -2,13 +2,13 @@
 
 # Buddy: A Mental Health Companion App
 
-Buddy is a mental health companion app designed to promote positivity, self-care, and personal growth. Built with Dart and the Flutter framework, Buddy provides a unique and engaging user experience that encourages users to incorporate acts of kindness, self-care practices, and journaling into their daily lives.
+Buddy is a mental health companion app designed to promote positivity, self-care, and personal growth. Built with Dart and the Flutter framework in Android Studio, Buddy provides a unique and engaging user experience that encourages users to incorporate acts of kindness, self-care practices, and journaling into their daily lives.
 
 ## Getting Started
 
 To run the Buddy app, you need to have Flutter installed on your machine. Follow the installation guide on the [Flutter website](https://flutter.dev/docs/get-started/install) to set up your development environment.
 
-After cloning the project from the GitHub repository, open the project directory in your preferred code editor. Then, open the `main.dart` file located in the `lib` folder. This file contains the main method of the app, which defines the routes for the app and starts the app.
+After cloning the project from the GitHub repository, open the project directory in your preferred code editor. Then, open the `main.dart` file located in the `lib` folder. This file contains the main method of the app, which defines the routes for the app and starts the app. In order to connect it, there needs to be connected device, which could either be a physical device or using the emulator, which are both options of the device manager.
 
 
 ## Table of Contents
